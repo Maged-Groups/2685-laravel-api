@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 
 use Illuminate\Http\Request;
@@ -11,3 +12,6 @@ Route::get('/user', function (Request $request) {
 
 
 Route::resource('posts', PostController::class);
+
+
+Route::post('auth/login', [AuthController::class, 'login']);

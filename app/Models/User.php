@@ -4,12 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model
+use Laravel\Sanctum\HasApiTokens;
+
+class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory;
+    use HasFactory, HasApiTokens;
 
 
     // Auto hash the password before save to the database
@@ -42,5 +46,3 @@ class User extends Model
         return $this->hasMany(Reply::class);
     }
 }
-
-

@@ -13,6 +13,13 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory, SoftDeletes;
 
+
+    protected $fillable = [
+        'title',
+        'body',
+        'post_status_id',
+        'user_id'
+    ];
     // Relationships
 
     public function user(): BelongsTo
