@@ -20,7 +20,34 @@ class AuthController extends Controller
             /** @var App\Models\User $user  */
             $user = Auth::user();
 
-            $token = $user->createToken('desktop_login')->plainTextToken;
+            $user_roles_arr = explode(',', $user->roles);
+            // return $user_roles_arr;
+
+            $token = $user->createToken('desktop_login', $user_roles_arr)->plainTextToken;
+
+            $user->token = $token;
+
+            return UserResource::make($user);
+
+            return 'user logged in successfully';
+        } else {
+            return 'Failed to login';
+        }
+    }
+    function login_mob(LoginRequest $request)
+    {
+
+        if (Auth::attempt($request->validated())) {
+
+            // $user = User::where('email', $request->email)->first();
+
+            /** @var App\Models\User $user  */
+            $user = Auth::user();
+
+            $user_roles_arr = explode(',', $user->roles);
+            // return $user_roles_arr;
+
+            $token = $user->createToken('mobile_login', ['read', 'write'])->plainTextToken;
 
             $user->token = $token;
 
