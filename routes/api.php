@@ -19,10 +19,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('reaction-types', ReactionTypeController::class)->only('index');
 
-    Route::apiResource('reaction-types', ReactionTypeController::class)->except('index')->middleware('admin');
+    Route::apiResource('reaction-types', ReactionTypeController::class)->except('index')->middleware('roles:manager|hr');
 });
-
-
 
 
 

@@ -8,8 +8,10 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use Illuminate\Http\Response;
 
+
 class PostController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -17,7 +19,9 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        return PostResource::collection($posts);
+        $post_data = PostResource::collection($posts);
+
+        return $this->json_response(['post_data' => $post_data]);
     }
 
 
@@ -42,7 +46,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return PostResource::make($post);
+
+        $post =  PostResource::make($post);
+
+        return $this->json_response(compact('post'));
     }
 
 
@@ -63,11 +70,19 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        if ($post->delete())
-            return response()->json(['message' => 'Deleted Successfully']);
 
-        return response()->json(['message' => 'Cannot delete the post!'], 402);
+        $post = Post::find($id);
+
+        if (!$post)
+            return $this->json_not_found();
+
+
+        if ($post->delete())
+            return $this->json_response(status: 202);
+
+
+        return $this->json_response(status: 401, message: 'Unable to delete the post');
     }
 }
