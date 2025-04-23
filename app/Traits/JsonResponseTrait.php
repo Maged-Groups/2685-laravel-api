@@ -99,4 +99,9 @@ trait JsonResponseTrait
     {
         return $this->json_response(message: $msg, status: 401, ok: false);
     }
+
+    function json_error($msg = 'Something went wrong, please reload the page and try again!!!')
+    {
+        return $this->json_response(message: $msg, status: 400, ok: false);
+    }
 }
