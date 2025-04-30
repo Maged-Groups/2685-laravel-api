@@ -18,7 +18,8 @@ class Post extends Model
         'title',
         'body',
         'post_status_id',
-        'user_id'
+        'user_id',
+        'photo'
     ];
     // Relationships
 

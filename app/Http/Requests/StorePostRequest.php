@@ -25,6 +25,7 @@ class StorePostRequest extends FormRequest
             'title' => 'required|between:3,100',
             'body' => 'required|between:10,200',
             'post_status_id' => 'required|numeric|exists:post_statuses,id',
+            'photo' => 'file|image|mimes:png,jpg'
         ];
     }
 }

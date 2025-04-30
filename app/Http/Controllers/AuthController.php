@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -57,5 +58,22 @@ class AuthController extends Controller
         } else {
             return 'Failed to login';
         }
+    }
+
+    function register(RegisterRequest $request)
+    {
+        $data = $request->validated();
+
+        $ability = 'user';
+
+        $data['roles'] = $ability;
+
+        $user = User::create($data);
+
+        if ($user) {
+            $user->token = $user->createToken('register', [$ability])->plainTextToken;
+        }
+
+        return $this->json_response(compact('user'), 'User Registered, Welcome aboard');
     }
 }

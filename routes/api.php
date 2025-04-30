@@ -23,10 +23,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('reaction-types', ReactionTypeController::class)->only('index');
 
     Route::apiResource('reaction-types', ReactionTypeController::class)->except('index')->middleware('roles:manager|hr');
+
+    Route::get('reports', function () {
+        return 'Reports';
+    })->middleware('roles:salesManager|accountManager|manager');
+
+
 });
 
 
 
 // Unprotected Routes
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/register', [AuthController::class, 'register']);
 Route::post('auth/login-mob', [AuthController::class, 'login_mob']);

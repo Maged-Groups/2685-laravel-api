@@ -16,7 +16,7 @@ class CheckRolesMiddleware
      */
     public function handle(Request $request, Closure $next, string $accepted_roles): Response
     {
-        // manager|hr
+        // [manager|hr]
         $route_roles_arr = explode('|', $accepted_roles);
 
         // $user_roles = auth()->user()->roles;

@@ -20,6 +20,7 @@ class PostResource extends JsonResource
             'Content' => $this->body,
             'User ID' => $this->user_id,
             'status_id' => $this->post_status_id,
+            'photo' => $this->photo,
             // 'post_status' => PostStatusResource::make($this->whenLoaded('post_status'))->withoutWrapping()
             // 'post_status' => PostStatusResource::make($this->whenLoaded('post_status'))->wrap('selected_data')
             'post_status' => PostStatusResource::make($this->whenLoaded('post_status'))

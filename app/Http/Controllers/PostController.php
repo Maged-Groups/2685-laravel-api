@@ -7,6 +7,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -34,7 +35,22 @@ class PostController extends Controller
 
         $data = $request->validated();
 
-        $data['user_id'] = 1;
+        $user_id = auth()->user()->id;
+
+        $data['user_id'] = $user_id;
+
+        // Save the photo to the default driver(storage)
+        $filePath = $request->file('photo')->store('posts');
+        // $filePath = Storage::put('new_ids', $request->file('photo'), 'public');
+
+
+        // Save the photo to the another driver(storage)
+        // $filePath = $request->file('photo')->storeAS('ids', "$user_id.jpg", 'local');
+
+
+        if ($filePath)
+            $data['photo'] = $filePath;
+
 
         $new_post = Post::create($data);
 
@@ -47,7 +63,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
 
-        $post =  PostResource::make($post);
+        $post = PostResource::make($post);
 
         return $this->json_response(compact('post'));
     }

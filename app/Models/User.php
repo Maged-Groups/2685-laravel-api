@@ -16,6 +16,14 @@ class User extends Authenticatable
     use HasFactory, HasApiTokens;
 
 
+    protected $fillable = [
+        "name",
+        "email",
+        "mobile",
+        "password",
+        'roles'
+    ];
+
     // Auto hash the password before save to the database
     protected function casts()
     {
