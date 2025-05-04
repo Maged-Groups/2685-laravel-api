@@ -37,3 +37,11 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/register', [AuthController::class, 'register']);
 Route::post('auth/login-mob', [AuthController::class, 'login_mob']);
+Route::post('auth/forget-password', [AuthController::class, 'forget_password']);
+Route::post('auth/reset-password', [AuthController::class, 'reset_password']);
+
+
+// payment (SAMPLE)
+
+// Route::post('payment-success', [PaymentController:class, 'success_payment']);
+// Route::post('fail-success', [PaymentController:class, 'fail_payment']);

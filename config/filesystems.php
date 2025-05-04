@@ -68,10 +68,6 @@ return [
             'throw' => false,
             'report' => false,
         ],
-
-        'cloud' => [
-
-        ],
     ],
 
     /*
