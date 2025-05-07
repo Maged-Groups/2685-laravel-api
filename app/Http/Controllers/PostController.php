@@ -7,6 +7,8 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -18,7 +20,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+
+        $posts = Cache::remember('all_posts', 60 * 120, function () {
+            return Post::with(['user', 'post_status'])->limit(10)->get();
+        });
+
+
+        // $posts = DB::table('posts')->join('users', 'users.id', 'posts.user_id')->get();
+
+        // return $posts;
 
         $post_data = PostResource::collection($posts);
 
@@ -54,6 +64,11 @@ class PostController extends Controller
 
         $new_post = Post::create($data);
 
+        // Clear cache
+        if ($new_post)
+            Cache::forget('all_posts');
+
+
         return PostResource::make($new_post);
     }
 
@@ -77,8 +92,10 @@ class PostController extends Controller
     {
         $updated = $post->update($request->validated());
 
-        if ($updated)
+        if ($updated) {
+            Cache::forget('all_posts');
             return PostResource::make($post);
+        }
 
         return response()->json(status: 403);
     }
@@ -95,9 +112,10 @@ class PostController extends Controller
             return $this->json_not_found();
 
 
-        if ($post->delete())
+        if ($post->delete()) {
+            Cache::forget('all_posts');
             return $this->json_response(status: 202);
-
+        }
 
         return $this->json_response(status: 401, message: 'Unable to delete the post');
     }

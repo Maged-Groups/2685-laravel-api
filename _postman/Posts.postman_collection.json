@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "81ddb9b8-b490-4325-bfb2-3e7c4f2aaeb7",
+		"name": "Posts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32428259"
+	},
+	"item": [
+		{
+			"name": "All",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_uri}}posts",
+					"host": [
+						"{{base_uri}}posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_uri}}posts/301",
+					"host": [
+						"{{base_uri}}posts"
+					],
+					"path": [
+						"301"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{posts_uri}}122",
+					"host": [
+						"{{posts_uri}}122"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Title New Post 1",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "11",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "body",
+							"value": "This is a Body of Title New Post 1",
+							"type": "text"
+						},
+						{
+							"key": "post_status_id",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": [
+								"/K:/Abir/blend mode/stock-vector-flower-mandala-vintage-decorative-elements-oriental-pattern-vector-illustration-islam-arabic-515944936.jpg",
+								"/K:/MagedYaseen/2685/__files/cert.jpg"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "{{posts_uri}}",
+					"host": [
+						"{{posts_uri}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.api+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "body",
+							"value": "This is a Body of Title B new",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{posts_uri}}302/",
+					"host": [
+						"{{posts_uri}}302"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "WEB ALL",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9874/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9874",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{api_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "posts_uri",
+			"value": "{{base_uri}}posts/",
+			"type": "default"
+		}
+	]
+}

@@ -11,16 +11,16 @@ use Illuminate\Support\Facades\Route;
 
 // Protected Routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('posts', PostController::class);
+    Route::apiResource('posts', PostController::class)->middleware('throttle:5,1,posts');
 
     Route::apiResource('comments', CommentController::class);
 
-    Route::apiResource('users', UserController::class);
+    Route::apiResource('users', UserController::class)->middleware('throttle:15,120,users');
 
 
     // Route::get('reaction-types', [ReactionTypeController::class, 'index']);
 
-    Route::apiResource('reaction-types', ReactionTypeController::class)->only('index');
+    Route::apiResource('reaction-types', ReactionTypeController::class)->only('index')->middleware('throttle:maged');
 
     Route::apiResource('reaction-types', ReactionTypeController::class)->except('index')->middleware('roles:manager|hr');
 
